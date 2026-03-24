@@ -1,0 +1,74 @@
+<section class="container">
+  <h2 class="section-title">Gestión de Biblioteca (Admin)</h2>
+  
+  <div class="admin-actions" style="margin-bottom: 2rem;">
+    <button class="btn" (click)="openAddForm()">+ Añadir Nuevo Libro</button>
+  </div>
+
+  @if (showForm) {
+    <div class="admin-form-card" style="background: #f9f9f9; padding: 2rem; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 2rem;">
+      <h3>{{ isEditing ? 'Editar Libro' : 'Nuevo Libro' }}</h3>
+      
+      <form [formGroup]="bookForm" (ngSubmit)="saveBook()">
+        <div class="form-group">
+          <label>Título</label>
+          <input type="text" formControlName="title" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label>Autor</label>
+          <input type="text" formControlName="author" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label>Precio</label>
+          <input type="number" formControlName="price" class="form-control">
+        </div>
+
+        <div class="form-group">
+          <label>Género</label>
+          <input type="text" formControlName="genre" class="form-control">
+        </div>
+
+        <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+          <button type="submit" class="btn" [disabled]="bookForm.invalid">
+            {{ isEditing ? 'Actualizar Libro' : 'Guardar Libro' }}
+          </button>
+          <button type="button" class="btn btn-danger" (click)="showForm = false" style="background: #e74c3c;">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  }
+
+  <div class="table-responsive">
+    <table style="width: 100%; border-collapse: collapse; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+      <thead>
+        <tr style="background: #2c3e50; color: white;">
+          <th style="padding: 1rem; text-align: left;">Título</th>
+          <th style="padding: 1rem; text-align: left;">Autor</th>
+          <th style="padding: 1rem; text-align: left;">Precio</th>
+          <th style="padding: 1rem; text-align: left;">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (book of books; track book.id) {
+          <tr style="border-bottom: 1px solid #eee;">
+            <td style="padding: 1rem;">{{ book.title }}</td>
+            <td style="padding: 1rem;">{{ book.author }}</td>
+            <td style="padding: 1rem;">${{ book.price }}</td>
+            <td style="padding: 1rem;">
+              <button (click)="openEditForm(book)" style="color: #3498db; border: none; background: none; cursor: pointer; font-weight: bold;">Editar</button>
+              <button (click)="deleteBook(book.id)" style="color: #e74c3c; border: none; background: none; cursor: pointer; font-weight: bold; margin-left: 1rem;">Eliminar</button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="4" style="padding: 2rem; text-align: center;">No hay libros registrados.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

@@ -1,0 +1,22 @@
+<section class="container">
+  <h2 class="section-title">Mi Biblioteca</h2>
+  <div class="library-grid">
+    @for (book of myBooks; track book.id) {
+      <div class="book-card">
+        <div class="book-cover">
+          <img [src]="book.cover_image" [alt]="book.title">
+        </div>
+        <div class="book-info">
+          <div class="book-title">{{ book.title }}</div>
+          <div class="book-author">{{ book.author }}</div>
+          <a [routerLink]="['/reader', book.id]" class="btn">Leer</a>
+        </div>
+      </div>
+    } @empty {
+      <div class="empty-library">
+        <p>Tu biblioteca está vacía</p>
+        <a routerLink="/catalog" class="btn">Explorar Catálogo</a>
+      </div>
+    }
+  </div>
+</section>

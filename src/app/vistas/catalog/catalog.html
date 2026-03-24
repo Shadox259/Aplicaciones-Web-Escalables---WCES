@@ -1,0 +1,24 @@
+<section class="container">
+  <h2 class="section-title">Catálogo Completo</h2>
+  
+  <div class="search-bar" style="margin-bottom: 2rem;">
+    <input type="text" [(ngModel)]="search" placeholder="Filtrar por título o autor...">
+  </div>
+
+  <div class="books-grid">
+    @for (book of allBooks; track book.id) {
+      <div class="book-card">
+        <div class="book-cover">
+          <img [src]="book.cover_image" [alt]="book.title">
+        </div>
+        <div class="book-info">
+          <h3>{{ book.title }}</h3>
+          <p>{{ book.author }}</p>
+          <div class="rating">★★★★☆</div>
+          <div class="book-price">${{ book.price }}</div>
+          <button class="btn" (click)="addToCart(book.id)">Añadir al Carrito</button>
+        </div>
+      </div>
+    }
+  </div>
+</section>

@@ -1,0 +1,45 @@
+<section class="container">
+  <h2 class="section-title">Mi Cuenta</h2>
+
+  <div class="profile-container" style="max-width: 600px; margin: 0 auto; background: white; padding: 2rem; border-radius: 8px;">
+    
+    <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+      
+      <div class="form-group">
+        <label>Nombre Completo</label>
+        <input type="text" formControlName="name" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Correo Electrónico</label>
+        <input type="email" formControlName="email" class="form-control" style="background: #f0f0f0;">
+      </div>
+
+      <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #eee;">
+      
+      <h3>Cambiar Contraseña</h3>
+      
+      <div class="form-group">
+        <label>Nueva Contraseña</label>
+        <input type="password" formControlName="newPassword" class="form-control" placeholder="Dejar en blanco para no cambiar">
+      </div>
+
+      <div class="form-group">
+        <label>Confirmar Nueva Contraseña</label>
+        <input type="password" formControlName="confirmPassword" class="form-control">
+      </div>
+
+      <button type="submit" class="btn" [disabled]="profileForm.invalid">
+        Guardar Cambios
+      </button>
+    </form>
+
+    <div class="danger-zone" style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid #f8d7da;">
+      <h3 style="color: #e74c3c;">Zona de Peligro</h3>
+      <p>Esta acción no se puede deshacer.</p>
+      <button (click)="deleteAccount()" class="btn btn-danger" style="background-color: #e74c3c;">
+        Eliminar mi cuenta
+      </button>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,29 @@
+<section class="container">
+  <h2 class="section-title">Tu Carrito de Compras</h2>
+
+  <div class="cart-container">
+    @for (item of cartItems; track item.id) {
+      <div class="cart-item" style="display: flex; align-items: center; gap: 2rem; border-bottom: 1px solid #eee; padding: 1rem 0;">
+        <img [src]="item.cover_image" style="width: 80px; border-radius: 4px;">
+        <div class="item-details" style="flex-grow: 1;">
+          <h4>{{ item.title }}</h4>
+          <p>{{ item.author }}</p>
+          <div class="item-price">${{ item.price }}</div>
+        </div>
+        <button class="btn btn-danger" (click)="removeItem(item.id)">Eliminar</button>
+      </div>
+    } @empty {
+      <div class="empty-cart" style="text-align: center; padding: 3rem;">
+        <p>Tu carrito está actualmente vacío.</p>
+        <a routerLink="/catalog" class="btn">Explorar Libros</a>
+      </div>
+    }
+
+    @if (cartItems.length > 0) {
+      <div class="cart-summary" style="margin-top: 2rem; text-align: right;">
+        <h3>Total: ${{ total | number:'1.2-2' }}</h3>
+        <button class="btn" style="margin-top: 1rem;" (click)="checkout()">Proceder al Pago</button>
+      </div>
+    }
+  </div>
+</section>

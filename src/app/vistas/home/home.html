@@ -1,0 +1,33 @@
+<div class="hero">
+  <div class="container">
+    <h1>Bienvenido a Library of Wonderland</h1>
+    <div class="search-bar">
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar libros...">
+      <button type="button" (click)="searchBooks()">Buscar</button>
+    </div>
+  </div>
+</div>
+
+<section class="container">
+  <h2 class="section-title">Libros Destacados</h2>
+  <div class="books-grid">
+    @for (book of featuredBooks; track book.id) {
+      <div class="book-card">
+        <div class="book-cover">
+          <img [src]="book.cover_image" [alt]="book.title">
+        </div>
+        <div class="book-info">
+          <h3>{{ book.title }}</h3>
+          <p>{{ book.author }}</p>
+          <div class="book-price">${{ book.price }}</div>
+          
+          @if (isLoggedIn) {
+            <button class="btn" (click)="addToCart(book.id)">Añadir al Carrito</button>
+          } @else {
+            <a routerLink="/login" class="btn">Iniciar Sesión para Comprar</a>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</section>
